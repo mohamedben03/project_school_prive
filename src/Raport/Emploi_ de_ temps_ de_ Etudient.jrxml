@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT E.`Num_Etudient`, E.`Nom_Etudient`,M.`Nom_Module`,G.`Nom_Groupe`,AGS.`jour`, AGS.`Heure_debut`
+ FROM `reservation`R,`etudient`E,`module`M,`groupe`G,`affectation_groupe_sciene`AGS
+ WHERE E.`Num_Etudient`= R.`Num_Etudient` 
+AND G.`Num_Groupe`= R.`Num_Groupe` 
+AND G.`Num_Groupe`= AGS.`Num_Groupe` 
+AND M.`Num_Module` = G.`Num_Module` 
+AND E.`Num_Etudient`='10']]>
+	</queryString>
+	<field name="Num_Etudient" class="java.lang.Integer"/>
+	<field name="Nom_Etudient" class="java.lang.String"/>
+	<field name="Nom_Module" class="java.lang.String"/>
+	<field name="Nom_Groupe" class="java.lang.String"/>
+	<field name="jour" class="java.lang.String"/>
+	<field name="Heure_debut" class="java.sql.Time"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="237" y="28" width="140" height="51"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[جدول التوقيت]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="8" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="434" y="19" width="106" height="35"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[رقم الطالب :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="311" y="19" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{Num_Etudient}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="139" y="19" width="127" height="35"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[اسم الطالب :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="24" y="19" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{Nom_Etudient}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="6" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="9" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="7" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="223" splitType="Stretch">
+			<crosstab>
+				<reportElement x="237" y="30" width="274" height="169"/>
+				<rowGroup name="jour" width="70">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{jour}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$V{jour}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="Heure_debut" height="30">
+					<bucket class="java.sql.Time">
+						<bucketExpression><![CDATA[$F{Heure_debut}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="30"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$V{Heure_debut}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents/>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="Nom_ModuleMeasure" class="java.lang.String">
+					<measureExpression><![CDATA[$F{Nom_Module}]]></measureExpression>
+				</measure>
+				<crosstabCell width="50" height="25">
+					<cellContents>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{Nom_ModuleMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="jour">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{Nom_ModuleMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="Heure_debut">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{Nom_ModuleMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="jour" columnTotalGroup="Heure_debut">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{Nom_ModuleMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>

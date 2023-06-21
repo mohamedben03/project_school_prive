@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="List_Etudient">
+		<parameter name="num_groupe" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT G.`Num_Groupe`, G.`Nom_Groupe`,M.`Nom_Module`,EN.`Nom_Enseignant`, E.`Num_Etudient`, E.`Nom_Etudient`, E.`prenom_Etudient` FROM `reservation`R,`etudient`E,`enseignant`EN,`groupe` G,`module`M WHERE E.`Num_Etudient`=R.`Num_Etudient` AND G.`Num_Groupe`=R.`Num_Groupe` AND EN.`Num_Enseignant`=G.`Num_Enseignant` AND M.`Num_Module`=G.`Num_Module` AND G.`Num_Groupe`=$P{num_groupe}]]>
+		</queryString>
+		<field name="Num_Groupe" class="java.lang.Integer"/>
+		<field name="Nom_Groupe" class="java.lang.String"/>
+		<field name="Nom_Module" class="java.lang.String"/>
+		<field name="Nom_Enseignant" class="java.lang.String"/>
+		<field name="Num_Etudient" class="java.lang.Integer"/>
+		<field name="Nom_Etudient" class="java.lang.String"/>
+		<field name="prenom_Etudient" class="java.lang.String"/>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[SELECT G.`Num_Groupe`, G.`Nom_Groupe`,M.`Nom_Module`,EN.`Nom_Enseignant`, E.`Num_Etudient`, E.`Nom_Etudient`, E.`prenom_Etudient` FROM `reservation`R,`etudient`E,`enseignant`EN,`groupe` G,`module`M WHERE E.`Num_Etudient`=R.`Num_Etudient` AND G.`Num_Groupe`=R.`Num_Groupe` AND EN.`Num_Enseignant`=G.`Num_Enseignant` AND M.`Num_Module`=G.`Num_Module` AND G.`Num_Groupe`=6;]]>
+	</queryString>
+	<field name="Num_Groupe" class="java.lang.Integer"/>
+	<field name="Nom_Groupe" class="java.lang.String"/>
+	<field name="Nom_Module" class="java.lang.String"/>
+	<field name="Nom_Enseignant" class="java.lang.String"/>
+	<field name="Num_Etudient" class="java.lang.Integer"/>
+	<field name="Nom_Etudient" class="java.lang.String"/>
+	<field name="prenom_Etudient" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="183" y="15" width="225" height="45"/>
+				<textElement>
+					<font size="22" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[قائمة تسجيل الحضور و الغياب]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="11" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement x="481" y="21" width="64" height="34"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[المادة :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="306" y="21" width="73" height="34"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الاستاذ :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="116" y="21" width="67" height="34"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الفوج :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="59" y="21" width="53" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nom_Groupe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="408" y="21" width="61" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nom_Module}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="21" width="51" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nom_Enseignant}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="8" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="9" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="14" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="169" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" style="table" x="59" y="27" width="360" height="80"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="List_Etudient">
+						<datasetParameter name="num_groupe">
+							<datasetParameterExpression><![CDATA[$F{Num_Groupe}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="22" isBold="true"/>
+								</textElement>
+								<text><![CDATA[الحالة]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="133">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="102" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="18" isBold="true"/>
+								</textElement>
+								<text><![CDATA[لقب الطالب]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="133" height="20"/>
+								<textElement>
+									<font size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{prenom_Etudient}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="139">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="95" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="18" isBold="true"/>
+								</textElement>
+								<text><![CDATA[اسم الطالب]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="139" height="20"/>
+								<textElement>
+									<font size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Nom_Etudient}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="136">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="108" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="16" isBold="true"/>
+								</textElement>
+								<text><![CDATA[رقم التسجيل]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="136" height="20"/>
+								<textElement>
+									<font size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Num_Etudient}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>
